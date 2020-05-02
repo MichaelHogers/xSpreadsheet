@@ -15,4 +15,5 @@ Encoding: UTF-8
 LazyData: false
 RoxygenNote: 6.1.1
 Suggests: 
-    testthat
+    testthat,
+    shinytest
