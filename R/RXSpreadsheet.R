@@ -1,6 +1,12 @@
-#' <Add Title>
+#' Load the x-spreadsheet javascript spreadsheet editor into Shiny
 #'
-#' <Add Description>
+#' This function creates an HTML widget to allow R Shiny to work with the
+#' x-spreadsheet library (https://github.com/myliang/x-spreadsheet).
+#'
+#' The widget heavily relies on the conversion between lists and json.
+#'
+#' To maintain the state of the spreadsheet editor one can store input$<example>_RXSpreadsheetData and load it again, see runExample().
+#'
 #'
 #' @import htmlwidgets
 #'

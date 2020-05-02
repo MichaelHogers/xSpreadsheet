@@ -13,7 +13,7 @@ Imports:
 License: MIT + file LICENS
 Encoding: UTF-8
 LazyData: false
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
 Suggests: 
     testthat,
     shinytest
