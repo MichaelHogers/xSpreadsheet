@@ -1,3 +1,5 @@
+shinytest::installDependencies()
+
 test_that("Shiny example app starts", {
   app <- shinytest::ShinyDriver$new("./inst/example")
 
