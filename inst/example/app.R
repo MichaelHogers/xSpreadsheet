@@ -15,20 +15,26 @@ ui <- fluidPage(
 
 )
 
+try({ shiny::removeInputHandler("rxspreadsheetlist") })
+shiny::registerInputHandler("rxspreadsheetlist", function(data, ...) {
+  list(data)
+}, force = TRUE)
+
+
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 
     output$example <- RXSpreadsheet::renderRXSpreadsheet({
       # RXSpreadsheet requires a special type of list - to ensure it fits the
       # json structure expected by the front-end library
-
       if (file.exists('example.Rdata')){
         load('example.Rdata')
-      } else {
-        savedData <- DataFrameToList(list('sheet1_example' = data.frame(matrix(rnorm(25), nrow=5, ncol = 5)),
-                                             'sheet2_example' =  data.frame(matrix(rnorm(25), nrow=5, ncol = 5))))
       }
-
+      if (is.null(savedData[[1]])) {
+        savedData <- DataFrameToList(list(
+          'sheet1_example' = data.frame(matrix(rnorm(25), nrow=5, ncol = 5)),
+          'sheet2_example' =  data.frame(matrix(rnorm(25), nrow=5, ncol = 5))))
+      }
       RXSpreadsheet(savedData)
 
     })

@@ -14,7 +14,7 @@
 RXSpreadsheet <- function(data, options = NULL, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
-  data = list(
+  message = list(
     data = data,
     options = options
   )
@@ -22,7 +22,7 @@ RXSpreadsheet <- function(data, options = NULL, width = NULL, height = NULL, ele
   # create widget
   htmlwidgets::createWidget(
     name = 'RXSpreadsheet',
-    data,
+    message,
     width = width,
     height = height,
     package = 'RXSpreadsheet',
@@ -48,9 +48,6 @@ RXSpreadsheet <- function(data, options = NULL, width = NULL, height = NULL, ele
 #'
 #' @export
 RXSpreadsheetOutput <- function(outputId, width = '100%', height = '400px'){
-  shiny::registerInputHandler("rxspreadsheetlist", function(data, ...) {
-    list(data)
-  }, force = TRUE)
   htmlwidgets::shinyWidgetOutput(outputId, 'RXSpreadsheet', width, height, package = 'RXSpreadsheet')
 }
 

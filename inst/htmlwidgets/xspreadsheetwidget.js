@@ -27,8 +27,11 @@ HTMLWidgets.widget({
           var elementId = el.id;
           xspreadsheetloaded = x_spreadsheet('#' + elementId, optionsxspreadsheet)
           .change((cdata) => {
+
               var xspreadsheetdata = xspreadsheetloaded.getData();
               Shiny.setInputValue(elementId + '_RXSpreadsheetData:rxspreadsheetlist', xspreadsheetdata);
+
+              $(el).trigger('change.rxspreadsheet', optionsxspreadsheet);
           })
           .loadData(dataToLoad);
 
@@ -49,3 +52,4 @@ HTMLWidgets.widget({
     };
   }
 });
+
