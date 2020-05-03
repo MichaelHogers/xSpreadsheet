@@ -11,18 +11,18 @@
 #' @import htmlwidgets
 #'
 #' @export
-RXSpreadsheet <- function(message, options = NULL, width = NULL, height = NULL, elementId = NULL) {
+RXSpreadsheet <- function(data, options = NULL, width = NULL, height = NULL, elementId = NULL) {
 
   # forward options using x
-  message = list(
-    message = message,
+  data = list(
+    data = data,
     options = options
   )
 
   # create widget
   htmlwidgets::createWidget(
     name = 'RXSpreadsheet',
-    message,
+    data,
     width = width,
     height = height,
     package = 'RXSpreadsheet',

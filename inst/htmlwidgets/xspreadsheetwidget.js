@@ -10,22 +10,19 @@ HTMLWidgets.widget({
 
     return {
 
-      renderValue: function(message) {
+      renderValue: function(data) {
 
         // render the widget
         if (!initialized){
           initialized = true;
 
-          dataToLoad = message.message.flat();
+          dataToLoad = data.data.flat();
 
-          if (message.options !== null){
-            optionsxspreadsheet = message.options;
+          if (data.options !== null){
+            optionsxspreadsheet = data.options;
           } else {
             optionsxspreadsheet = '{}';
           }
-
-
-          debugger;
 
           var elementId = el.id;
           xspreadsheetloaded = x_spreadsheet('#' + elementId, optionsxspreadsheet)
