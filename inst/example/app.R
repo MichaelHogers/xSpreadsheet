@@ -1,17 +1,6 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
 library(RXSpreadsheet)
 library(shiny)
 library(htmltools)
-
-# check if xlsx installed, if so show more demo features
-isXLSXPresent <- "xlsx" %in% rownames(installed.packages())
 
 # example UI
 ui <- fluidPage(
@@ -19,7 +8,7 @@ ui <- fluidPage(
       # RXSpreadsheet Output
       RXSpreadsheetOutput(outputId = 'example'),
 
-      if (isXLSXPresent){
+      if ("xlsx" %in% rownames(installed.packages())){
       downloadButton('getXLSXData',
                    style = 'position: fixed; top: 0; right: 0; background: #006600; color: #fff;')
       }
@@ -51,7 +40,7 @@ server <- function(input, output) {
       save(savedData, file = 'example.Rdata')
     })
 
-    if (isXLSXPresent){
+    if ("xlsx" %in% rownames(installed.packages())){
       output$getXLSXData <- downloadHandler(
         filename = function(){
           'example.xlsx'
