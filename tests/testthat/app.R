@@ -15,6 +15,12 @@ ui <- fluidPage(
 
 )
 
+try({ shiny::removeInputHandler("rxspreadsheetlist") })
+shiny::registerInputHandler("rxspreadsheetlist", function(data, ...) {
+  list(data)
+}, force = TRUE)
+
+
 # Define server logic required to draw a histogram
 server <- function(input, output) {
 

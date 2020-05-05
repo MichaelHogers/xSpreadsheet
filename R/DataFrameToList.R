@@ -1,4 +1,5 @@
 #' @rdname DataFrameToList
+#' @param inputData A list of dataframes where each list entry has a name. This list is converted into the right format for x-spreadsheet. Each list name is converted into a sheetname together with its relevant data.
 #' @export
 DataFrameToList <- function(inputData){
 

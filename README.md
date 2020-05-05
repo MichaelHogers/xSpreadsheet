@@ -10,7 +10,7 @@ The goal of RXSpreadsheet is to create a wrapper for the x-spreadsheet JS librar
 
 <p align="center">
   <a href="https://github.com/myliang/x-spreadsheet">
-    <img width="100%" src="demo.png">
+    <img width="100%" src="inst/assets/demo.png">
   </a>
 </p>
 

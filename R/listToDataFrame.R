@@ -1,4 +1,5 @@
 #' @rdname listToDataFrame
+#' @param listData A list object saved via the input binding (input$<yourname>_RXSpreadsheetData) can be converted into a list of dataframes with this function. Note that only the table data is kept when doing this conversion, but no formatting or styling.
 #' @export
 listToDataFrame <- function(listData){
 
