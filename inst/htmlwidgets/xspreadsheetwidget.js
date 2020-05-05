@@ -6,39 +6,26 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
-    var initialized = false;
+    var rxspreadsheet = null;
 
     return {
 
-      renderValue: function(data) {
+      renderValue: function(message) {
 
-        // render the widget
-        if (!initialized){
-          initialized = true;
+        if (rxspreadsheet === null) {
+          // initialise object & render the widget
+          var rxspreadsheetData = message.data[0];
+          var rxspreadsheetOptions = message.options === undefined? '{}': message.options;
 
-          dataToLoad = data.data.flat();
+          rxspreadsheet = x_spreadsheet('#' + el.id, rxspreadsheetOptions)
+          .loadData(rxspreadsheetData)
+          .change(function() {
+            $(el).trigger('change.rxspreadsheet');
+          });
 
-          if (data.options !== null){
-            optionsxspreadsheet = data.options;
-          } else {
-            optionsxspreadsheet = '{}';
-          }
-
-          var elementId = el.id;
-          xspreadsheetloaded = x_spreadsheet('#' + elementId, optionsxspreadsheet)
-          .change((cdata) => {
-
-              var xspreadsheetdata = xspreadsheetloaded.getData();
-              Shiny.setInputValue(elementId + '_RXSpreadsheetData:rxspreadsheetlist', xspreadsheetdata);
-
-              $(el).trigger('change.rxspreadsheet', optionsxspreadsheet);
-          })
-          .loadData(dataToLoad);
-
-          // initialise input binding, as otherwise binding will be NULL until a change is made
-          var xspreadsheetdatainit = xspreadsheetloaded.getData();
-          Shiny.setInputValue(elementId + '_RXSpreadsheetData:rxspreadsheetlist', xspreadsheetdatainit);
-
+          el.rxspreadsheet = rxspreadsheet;
+          // initialise
+          $(el).trigger('change.rxspreadsheet');
         }
 
       },
@@ -53,3 +40,52 @@ HTMLWidgets.widget({
   }
 });
 
+
+var rxspreadsheetBinding = new Shiny.InputBinding();
+
+// step ii
+$.extend(rxspreadsheetBinding, {
+
+  find: function(scope) {
+    return $(scope).find(".RXSpreadsheet");
+  },
+
+  getId: function(el) {
+
+    return el.id + '_RXSpreadsheetData';
+  },
+
+  getValue: function(el) {
+    if (el.rxspreadsheet !== undefined) {
+      return el.rxspreadsheet.getData();
+    } else {
+      return null;
+    }
+
+  },
+
+  subscribe: function(el, callback) {
+    $(el).on("change.rxspreadsheet", function(e) {
+      callback(true);
+    });
+  },
+
+  unsubscribe: function(el) {
+    $(el).off(".rxspreadsheet");
+  },
+
+  getRatePolicy: function() {
+
+    return {policy: 'debounce',
+            delay: 500
+    };
+  },
+
+  getType: function(el) {
+    return "rxspreadsheetlist";
+ }
+
+});
+
+// step iii
+Shiny.inputBindings.register(rxspreadsheetBinding);
