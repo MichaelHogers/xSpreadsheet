@@ -1,20 +1,18 @@
 Package: RXSpreadsheet
 Type: Package
-Title: An R Wrapper for the Javascript Canvas Spreadsheet Library X-Spreadsheet (MIT License)
+Title: An R Wrapper for the Javascript Canvas Spreadsheet Library
+        X-Spreadsheet (MIT License)
 Version: 1.11
 Author: Michael Hogers, Jiawei Xu
 Maintainer: Michael Hogers <michael_hogers@live.nl>
 Description: Provides a wrapper for <https://github.com/myliang/x-spreadsheet>, a very nice 
     web-based JavaScript canvas spreadsheet. This is a minimalistic wrapper.
-Imports: 
-    jsonlite,
-    shiny,
-    htmltools,
-    htmlwidgets
+Imports: jsonlite, shiny, htmltools, htmlwidgets
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
 RoxygenNote: 7.1.0
-Suggests: 
-    testthat,
-    shinytest
+Suggests: testthat, shinytest
+NeedsCompilation: no
+Packaged: 2020-06-13 12:54:13 UTC; micha
+Built: R 3.5.3; ; 2020-06-13 12:54:57 UTC; windows

@@ -1,0 +1,7 @@
+dataFrameToList	dataFrameToList
+listToDataFrame	listToDataFrame
+renderRXSpreadsheet	RXSpreadsheet-shiny
+runExample	runExample
+RXSpreadsheet	RXSpreadsheet
+RXSpreadsheet-shiny	RXSpreadsheet-shiny
+RXSpreadsheetOutput	RXSpreadsheet-shiny

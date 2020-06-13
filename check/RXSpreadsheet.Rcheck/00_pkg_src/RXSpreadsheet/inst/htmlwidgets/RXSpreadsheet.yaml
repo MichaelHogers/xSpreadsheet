@@ -1,0 +1,10 @@
+dependencies:
+  - name: x-spreadsheet
+    version: 1.11
+    src: htmlwidgets
+    script: xspreadsheet.js
+    stylesheet: xspreadsheet.css
+  - name: x-spreadsheet-widget
+    version: 1.11
+    src: htmlwidgets
+    script: xspreadsheetwidget.js
