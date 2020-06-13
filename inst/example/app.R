@@ -41,6 +41,7 @@ server <- function(input, output) {
     })
 
     if ("xlsx" %in% rownames(installed.packages())){
+      libary('xlsx')
       output$getXLSXData <- downloadHandler(
         filename = function(){
           'example.xlsx'
@@ -62,7 +63,7 @@ server <- function(input, output) {
               appendSheet <- FALSE
             }
 
-            xlsx::write.xlsx(exampleConversion[i],
+            write.xlsx(exampleConversion[i],
                        file = exampleName,
                        sheetName = names(exampleConversion)[i],
                        row.names = FALSE,
