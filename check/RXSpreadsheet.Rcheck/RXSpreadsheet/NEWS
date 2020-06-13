@@ -5,4 +5,4 @@ Changes:
 
 * Added a NEWS.md file to track changes to the package.
 * Library currently contains all necessary functions to interact with the x-spreadsheet library.
-* To do: dynamic loading and saving of data. Currently a small change sends the entire data object from JS to R which is overkill for large spreadsheets.
+* To do: dynamic loading and saving of data. Currently a small change sends the entire data object from JS to R which is especially inefficient for large spreadsheets.
