@@ -40,10 +40,7 @@ New submission
 * checking S3 generic/method consistency ... OK
 * checking replacement functions ... OK
 * checking foreign function calls ... OK
-* checking R code for possible problems ... NOTE
-dataFrameListToList: no visible binding for global variable 'testDF'
-Undefined global functions or variables:
-  testDF
+* checking R code for possible problems ... OK
 * checking Rd files ... OK
 * checking Rd metadata ... OK
 * checking Rd line widths ... OK
@@ -55,24 +52,7 @@ Undefined global functions or variables:
 * checking for unstated dependencies in examples ... OK
 * checking examples ... NONE
 * checking for unstated dependencies in 'tests' ... OK
-* checking tests ... ERROR
+* checking tests ... OK
   Running 'testthat.R'
-Running the tests in 'tests/testthat.R' failed.
-Last 13 lines of output:
-  > library(testthat)
-  > library(RXSpreadsheet)
-  > 
-  > test_check("RXSpreadsheet")
-  [31m--[39m [31m1. Error: function converts dataframe to list (@test-dataFrameLis[39m
-  object 'testDF' not found
-  [1mBacktrace:[22m
-  [90m 1. [39mRXSpreadsheet::dataFrameListToList(testDFList)
-  
-  == testthat results  ===============================================
-  [ OK: 0 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
-  1. Error: function converts dataframe to list (@test-dataFrameListToList.R#11) 
-  
-  Error: testthat unit tests failed
-  Execution halted
 * DONE
-Status: 1 ERROR, 2 NOTEs
+Status: 1 NOTE

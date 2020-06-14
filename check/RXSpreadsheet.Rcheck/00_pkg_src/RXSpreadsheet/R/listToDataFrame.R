@@ -15,7 +15,10 @@ listToDataFrame <- function(listData){
 
     sheetData <- data.frame(matrix(NA, ncol = numberOfCols, nrow = numberOfRows))
 
-    rowsWithData <- as.numeric(names(currentSheetSelected$rows))
+    # suppress NA coercion warning
+    suppressWarnings(
+      rowsWithData <- as.numeric(names(currentSheetSelected$rows))
+    )
     rowsWithData <- rowsWithData[!is.na(rowsWithData)]
 
     for (rowIndex in rowsWithData){
@@ -30,9 +33,8 @@ listToDataFrame <- function(listData){
           R_RowIndex <- as.numeric(rowIndex) + 1
           R_ColIndex <- as.numeric(cellElement) + 1
 
-          print(paste0(R_RowIndex, ", ", R_ColIndex))
           if (!is.null(selectedData)){
-            sheetData[R_RowIndex, R_ColIndex] <- selectedData
+            sheetData[R_RowIndex, R_ColIndex] <- as.character(selectedData)
           }
       }
 

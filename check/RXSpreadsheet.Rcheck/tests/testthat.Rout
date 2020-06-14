@@ -19,14 +19,9 @@ Type 'q()' to quit R.
 > library(RXSpreadsheet)
 > 
 > test_check("RXSpreadsheet")
-[31m--[39m [31m1. Error: function converts dataframe to list (@test-dataFrameLis[39m
-object 'testDF' not found
-[1mBacktrace:[22m
-[90m 1. [39mRXSpreadsheet::dataFrameListToList(testDFList)
-
 == testthat results  ===============================================
-[ OK: 0 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 1 ]
-1. Error: function converts dataframe to list (@test-dataFrameListToList.R#11) 
-
-Error: testthat unit tests failed
-Execution halted
+[ OK: 15 | SKIPPED: 0 | WARNINGS: 0 | FAILED: 0 ]
+> 
+> proc.time()
+   user  system elapsed 
+   0.64    0.07    0.70 

@@ -6,7 +6,7 @@ Version: 1.11.0
 Author: Michael Hogers, Jiawei Xu
 Maintainer: Michael Hogers <michael_hogers@live.nl>
 Description: Provides a wrapper for <https://github.com/myliang/x-spreadsheet>, a very nice 
-    web-based JavaScript canvas spreadsheet. This is a minimalistic wrapper.
+    web-based JavaScript canvas spreadsheet. 
 Imports: jsonlite, shiny, htmltools, htmlwidgets
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -14,5 +14,5 @@ LazyData: false
 RoxygenNote: 7.1.0
 Suggests: testthat, shinytest
 NeedsCompilation: no
-Packaged: 2020-06-14 09:50:41 UTC; micha
-Built: R 3.5.3; ; 2020-06-14 09:50:57 UTC; windows
+Packaged: 2020-06-14 11:16:49 UTC; micha
+Built: R 3.5.3; ; 2020-06-14 11:16:59 UTC; windows

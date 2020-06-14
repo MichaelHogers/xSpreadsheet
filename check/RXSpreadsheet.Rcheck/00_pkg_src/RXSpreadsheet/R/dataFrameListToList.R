@@ -6,7 +6,7 @@
 dataFrameListToList <- function(inputData){
 
   targetFormatList <- ''
-  if (inherits(testDF, 'list') == FALSE){
+  if (inherits(inputData, 'list') == FALSE){
     stop('required that inputData is of type list where list elements are of type data.frame')
   }
 

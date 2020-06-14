@@ -4,3 +4,6 @@
 ^README\.Rmd$
 ^\.github$
 ^README\.md$
+^\.github$
+^\.github/workflows/R-CMD-check\.yaml$
+^cran-comments\.md$
