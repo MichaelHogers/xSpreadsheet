@@ -14,4 +14,4 @@ LazyData: false
 RoxygenNote: 7.1.0
 Suggests: testthat, shinytest
 NeedsCompilation: no
-Packaged: 2020-06-14 08:21:21 UTC; micha
+Packaged: 2020-06-14 08:43:54 UTC; micha
