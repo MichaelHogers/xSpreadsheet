@@ -6,12 +6,7 @@ library(htmltools)
 ui <- fluidPage(
 
       # RXSpreadsheet Output
-      RXSpreadsheetOutput(outputId = 'example'),
-
-      if ("xlsx" %in% rownames(installed.packages())){
-      downloadButton('getXLSXData',
-                   style = 'position: fixed; top: 0; right: 0; background: #006600; color: #fff;')
-      }
+      RXSpreadsheetOutput(outputId = 'example')
 
 )
 
@@ -39,45 +34,6 @@ server <- function(input, output) {
       savedData <- input$example_RXSpreadsheetData
       save(savedData, file = 'example.Rdata')
     })
-
-    if ("xlsx" %in% rownames(installed.packages())){
-      libary('xlsx')
-      output$getXLSXData <- downloadHandler(
-        filename = function(){
-          'example.xlsx'
-        },
-        content = function(file){
-          exampleConversion <- RXSpreadsheet::listToDataFrame(input$example_RXSpreadsheetData)
-          numberOfSheets <- length(exampleConversion)
-          exampleName <- 'example.xlsx'
-
-          if (file.exists(exampleName)){
-            file.remove(exampleName)
-          }
-
-          for (i in 1:numberOfSheets){
-
-            if (i > 1){
-              appendSheet <- TRUE
-            } else {
-              appendSheet <- FALSE
-            }
-
-            write.xlsx(exampleConversion[i],
-                       file = exampleName,
-                       sheetName = names(exampleConversion)[i],
-                       row.names = FALSE,
-                       col.names = FALSE,
-                       append = appendSheet,
-                       showNA = FALSE)
-          }
-
-          file.copy(from = exampleName,
-                    to = file)
-
-        }
-      )
-    }
 
 }
 

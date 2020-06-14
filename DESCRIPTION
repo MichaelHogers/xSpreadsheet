@@ -10,8 +10,7 @@ Imports:
     jsonlite,
     shiny,
     htmltools,
-    htmlwidgets,
-    xlsx
+    htmlwidgets
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: false
