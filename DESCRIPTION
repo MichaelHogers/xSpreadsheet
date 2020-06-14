@@ -1,7 +1,7 @@
 Package: RXSpreadsheet
 Type: Package
 Title: An R Wrapper for the Javascript Canvas Spreadsheet Library X-Spreadsheet (MIT License)
-Version: 1.11
+Version: 1.11.0
 Author: Michael Hogers, Jiawei Xu
 Maintainer: Michael Hogers <michael_hogers@live.nl>
 Description: Provides a wrapper for <https://github.com/myliang/x-spreadsheet>, a very nice 
