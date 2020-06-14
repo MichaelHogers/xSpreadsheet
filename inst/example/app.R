@@ -20,7 +20,7 @@ server <- function(input, output) {
         load('example.Rdata')
       }
       if (is.null(savedData[[1]])) {
-        savedData <- dataFrameToList(list(
+        savedData <- dataFrameListToList(list(
           'sheet1_example' = data.frame(matrix(rnorm(25), nrow=5, ncol = 5)),
           'sheet2_example' =  data.frame(matrix(rnorm(25), nrow=5, ncol = 5))))
       }

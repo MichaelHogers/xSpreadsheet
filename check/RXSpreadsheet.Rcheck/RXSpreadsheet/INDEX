@@ -1,7 +1,0 @@
-RXSpreadsheet           Load the x-spreadsheet javascript spreadsheet
-                        editor into Shiny
-RXSpreadsheet-shiny     Shiny bindings for RXSpreadsheet
-dataFrameToList         dataFrameToList
-listToDataFrame         listToDataFrame
-runExample              Run examples of using RXSpreadsheet in a Shiny
-                        app

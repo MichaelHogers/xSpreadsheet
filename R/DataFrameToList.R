@@ -1,13 +1,13 @@
-#' dataFrameToList
-#' @name dataFrameToList
-#' @rdname dataFrameToList
+#' dataFrameListToList
+#' @name dataFrameListToList
+#' @rdname dataFrameListToList
 #' @param inputData A list of dataframes where each list entry has a name. This list is converted into the right format for x-spreadsheet. Each list name is converted into a sheetname together with its relevant data.
 #' @export
-dataFrameToList <- function(inputData){
+dataFrameListToList <- function(inputData){
 
   targetFormatList <- ''
-  if (is.list(inputData) == FALSE){
-    stop('required that inputData is of type list')
+  if (inherits(testDF, 'list') == FALSE){
+    stop('required that inputData is of type list where list elements are of type data.frame')
   }
 
   # format expected:
