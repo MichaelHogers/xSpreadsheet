@@ -53,6 +53,6 @@ New submission
 * checking examples ... NONE
 * checking for unstated dependencies in 'tests' ... OK
 * checking tests ... OK
-  Running 'testthat.R' [11s]
+  Running 'testthat.R' [14s]
 * DONE
 Status: 1 NOTE
