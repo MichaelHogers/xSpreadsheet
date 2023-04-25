@@ -20,10 +20,10 @@ The goal of RXSpreadsheet is to create a wrapper for the x-spreadsheet JS librar
 
 ## Installation
 
-You can install the released version of RXSpreadsheet from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of RXSpreadsheet from GitHub with:
 
 ``` r
-install.packages("RXSpreadsheet")
+remotes::install_github('MichaelHogers/RXSpreadsheet')
 ```
 
 ## Example
