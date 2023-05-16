@@ -1,0 +1,158 @@
+window.rxspreadsheet = null;
+
+HTMLWidgets.widget({
+
+    name: 'xspreadsheet',
+    type: 'output',
+
+    factory: function(el, width, height) {
+
+      return {
+
+        renderValue: function(message) {
+
+            window.rxspreadsheet = window.rxspreadsheet || {};
+
+            if (window.rxspreadsheet[el.id] === undefined) {
+              window.rxspreadsheet[el.id] = null;
+              window.rxspreadsheet[el.id] =
+                x_spreadsheet('#' + el.id, message.options)
+                  .loadData(
+                    message.data
+                  ).change(data => {
+                    Shiny.setInputValue(
+                      el.id + "_change",
+                      // timestamp UTC
+                      new Date().toISOString()
+                    );
+                  })
+
+                // + 1 indexing to avoid confusion in R
+                window.rxspreadsheet[el.id].on(
+                    'cell-selected',
+                    (cell, ri, ci) => {
+                      Shiny.setInputValue(
+                        el.id + "_cell_selected",
+                        {"row": ri + 1, "cell": ci + 1, "value": cell},
+                        ({priority: "event"})
+                      );
+                  }).on( 'cells-selected', (cell, { sri, sci, eri, eci }) => {
+                    Shiny.setInputValue(
+                      el.id + "_cells_selected",
+                      {"start_row": sri + 1, "start_cell": sci + 1,
+                      "end_row": eri + 1,  "end_cell": eci + 1},
+                      {priority: "event"}
+                    );
+                  }).on('cell-edited', (cell, ri, ci) => {
+                    Shiny.setInputValue(
+                      el.id + "_cell_edited",
+                      {"row": ri + 1, "cell": ci + 1, "value": cell},
+                      {priority: "event"}
+                    );
+                  })
+            } else {
+              // if it already exists, reload the data only
+              window.rxspreadsheet[el.id].loadData(
+                message.data
+              );
+            }
+        },
+
+        resize: function(width, height) {
+
+        }
+      };
+    }
+  });
+
+
+// proxy support, so x-spreadsheet API calls
+// can be made from R via invokeProxy and dependencies
+Shiny.addCustomMessageHandler("xspreadsheet-calls", function(data) {
+  var id = data.id;
+  var el2 = document.getElementById(id);
+
+  if (!el2.classList.contains("xspreadsheet")) {
+    console.log("Couldn't find x-spreadsheet with id " + id +
+    ", missing xspreadsheet class");
+    return;
+  }
+
+  // available methods on the x-spreadsheet API
+  // ### R server side -> x-spreadsheet client side
+  // addSheet(name, active)
+  // reRender (refresh the entire table)
+  // loadData(data) (reload the data)
+  // change(callback), page operations or data changes
+  // cellText(ri, ci, text, sheetIndex) (set text)
+
+  // DOES NOT WORK, issue in x-spreadsheet ?
+  // locale('zh-cn'/'en'/'nl'/'de'), change localisation
+  // deleteSheet (delete the current sheet)
+
+  // getData, retrieve all data and keep all formatting
+  //    and table settings
+
+  if (data.call.method === "addSheet") {
+    rxspreadsheet[id].addSheet(
+      data.call.args.name,
+      data.call.args.active
+    )
+  } else if (data.call.method === "reRender") {
+    rxspreadsheet[id].reRender();
+  } else if (data.call.method === "deleteSheet") {
+    rxspreadsheet[id].deleteSheet();
+  } else if (data.call.method === "loadData") {
+    rxspreadsheet[id].loadData(data.call.args.data);
+  } else if (data.call.method === "cellText") {
+    debugger;
+    rxspreadsheet[id].cellText(
+      ci = data.call.args.rowIndex,
+      ri = data.call.args.colIndex,
+      text = data.call.args.text,
+      data.call.args.sheetIndex
+    )
+  } else if (data.call.method === "getData") {
+    // convert JSON to a string
+    // so Shiny does not try to parse it
+    // TO DO: check if this is still necessary, bit hacky
+    // is there a input handler that prevents parsing?
+    Shiny.setInputValue(
+      id + "_data",
+      JSON.stringify(
+        rxspreadsheet[id].getData()
+      ),
+      {priority: "event"}
+    )
+  } else if (data.call.method === "cell") {
+    Shiny.setInputValue(
+      id + "_cell",
+      rxspreadsheet[id].cell(
+        data.call.args.ri,
+        data.call.args.ci,
+        data.call.args.sheetIndex
+      ),
+      {priority: "event"}
+    )
+  } else if (data.call.method === "cellStyle") {
+    Shiny.setInputValue(
+      id + "_cell_style",
+      rxspreadsheet[id].cellStyle(
+        data.call.args.ri,
+        data.call.args.ci,
+        data.call.args.sheetIndex
+      ),
+      {priority: "event"}
+    )
+  } else {
+    console.log("Unknown method " + data.call.method);
+  }
+
+  // ### x-spreadsheet client side -> R server side
+  // cell(ri, ci, sheetIndex) (get content)
+  // cellStyle(ri, ci, sheetIndex) (get style)
+  // getData()
+  // on(eventName, callback) binding event
+
+
+});

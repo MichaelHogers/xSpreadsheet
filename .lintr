@@ -1,2 +1,6 @@
-linters: linters_with_defaults() # see vignette("lintr")
+linters: linters_with_defaults(
+  object_name_linter("camelCase"),
+  object_usage_linter = NULL,
+  cyclocomp_linter(40)
+  ) # see vignette("lintr")
 encoding: "UTF-8"

@@ -1,0 +1,25 @@
+{
+  "name": "rxspreadsheet",
+  "version": "1.0.0",
+  "description": "<!-- README.md is generated from README.Rmd. Please edit that file -->",
+  "main": "index.js",
+  "directories": {
+    "man": "man",
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelHogers/RXSpreadsheet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelHogers/RXSpreadsheet/issues"
+  },
+  "homepage": "https://github.com/MichaelHogers/RXSpreadsheet#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.33.0"
+  }
+}

@@ -1,6 +1,6 @@
 Package: RXSpreadsheet
 Title: X-Spreadsheet R Wrapper
-Version: 2.1.1.7
+Version: 2.1.1.9
 Authors@R:
     c(person("Michael", "Hogers", email = "michael_hogers@live.nl", role = c("aut", "cre")),
       person("Jiawei", "Xu", email = "liner_wmx@hotmail.com", role = "aut"))
@@ -14,3 +14,11 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 URL: https://michaelhogers.github.io/RXSpreadsheet/
+Imports:
+    htmltools,
+    htmlwidgets,
+    jsonlite,
+    shiny
+Depends:
+    R (>= 2.10)
+LazyData: true
