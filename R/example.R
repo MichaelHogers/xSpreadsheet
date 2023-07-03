@@ -1,4 +1,5 @@
 #' @export
+#' @import shiny
 demoApp <- function(
   port = 4000,
   host = "0.0.0.0"
@@ -7,11 +8,11 @@ demoApp <- function(
 
   shiny::shinyApp(
     ui = bslib::page_navbar(
-      bslib::nav(
+      bslib::nav_panel(
           "Default functionality",
           generalUI(id = "example")
       ),
-      bslib::nav(
+      bslib::nav_panel(
           "Highchart example",
           chartUI(id = "chart")
       )
@@ -28,10 +29,11 @@ demoApp <- function(
 
 
 #### General uses example
+#' @import shiny
 generalUI <- function(id) {
     ns <- shiny::NS(id)
 
-    tags$div(class = "container-fluid",
+    shiny::tags$div(class = "container-fluid",
     shiny::tags$div(class = "row",
         shiny::column(
             width = 4,
@@ -180,7 +182,8 @@ generalUI <- function(id) {
             width = 8,
             RXSpreadsheet::RXSpreadsheetOutput(
                 outputId = ns("example"),
-                height = "90vh"
+                height = "90vh",
+                width = "100%"
             )
         )
     )
@@ -454,13 +457,13 @@ chartServer <- function(id, data) {
               sheet2 <- as.numeric(chartData()$sheet2$x)
 
               # base chart without series
-              hc_fill <- highchart() |>
+              hc_fill <- highcharter::highchart() |>
                 # add dependency
-                hc_add_dependency("modules/pattern-fill.js") |>
-                hc_chart(type = 'area') |>
-                hc_title(text = 'Pattern fill plugin demo') |>
-                hc_xAxis(categories = c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')) |>
-                hc_plotOptions(
+                highcharter::hc_add_dependency("modules/pattern-fill.js") |>
+                highcharter::hc_chart(type = 'area') |>
+                highcharter::hc_title(text = 'Pattern fill plugin demo') |>
+                highcharter::hc_xAxis(categories = c('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')) |>
+                highcharter::hc_plotOptions(
                   area = list(
                     fillColor = list(
                       pattern = list(
@@ -478,7 +481,7 @@ chartServer <- function(id, data) {
 
               # test with 2 series
               hc_fill |>
-                hc_add_series(
+                highcharter::hc_add_series(
                   data = sheet1,
                   color= '#88e',
                   fillColor = list(
@@ -487,7 +490,7 @@ chartServer <- function(id, data) {
                     )
                   )
                   ) |>
-                hc_add_series(
+                highcharter::hc_add_series(
                   data = sheet2,
                   color = '#e88',
                   fillColor = list(

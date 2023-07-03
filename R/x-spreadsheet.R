@@ -11,12 +11,10 @@
 #' spreadsheet where the name of the first sheet is "Sheet1"
 #' - A named list where each list entry contains a data.frame object,
 #' a named sheet is generated in correspondence with the named list
-#' - A named list following the x-spreadsheet JSON structure, allowing
-#' to set styles and other metadata - TBD
 #' @param options A list containing table options/settings, set at
 #' table initialisation.
 #' The list should match the JSON structure below, e.g.: list(
-#' "mode" = "edit", showToolbar = TRUE, ...)
+#' "mode" = "edit", showToolbar = TRUE, ...), JSON:
 #' {
 #'   mode: 'edit', // edit | read
 #'   showToolbar: true,
@@ -53,6 +51,7 @@
 #'   },
 #' }
 #' @param elementId htmlwidget elementid
+#' @import shiny
 #' @export
 xSpreadsheet <- function(data, options = NULL, elementId = NULL) {
   data <- processInputData(data)
@@ -235,9 +234,10 @@ xSpreadsheetListToDf <- function(data, headerRow = TRUE) {
 #' - type: the type to convert to
 #' originating from a JSON object returned by x-spreadsheet
 cellTypeConversion <- function(x) {
+      text <- ""
       if ("type" %in% names(x)) {
         # convert x to the correct type
-        switch(x$type,
+        text <- switch(x$type,
                "character" = x$text,
                "double" = as.numeric(x$text),
                "integer" = as.integer(x$text),
@@ -246,8 +246,10 @@ cellTypeConversion <- function(x) {
                "raw" = as.raw(x$text),
                x$test)
       } else {
-        return(x$text)
+        text <- x$text
       }
+
+      text
 }
 
 #' Shiny bindings for RXSpreadsheet
@@ -267,7 +269,7 @@ cellTypeConversion <- function(x) {
 #' @name RXSpreadsheet-shiny
 #'
 #' @export
-RXSpreadsheetOutput <- function(outputId, width = "100%", height = "400px") {
+RXSpreadsheetOutput <- function(outputId, width = "100%", height = "100%") {
   try({
     shiny::removeInputHandler("rxspreadsheetlist")
   })
@@ -275,9 +277,47 @@ RXSpreadsheetOutput <- function(outputId, width = "100%", height = "400px") {
     list(data)
   }, force = TRUE)
 
-  htmlwidgets::shinyWidgetOutput(outputId, "xspreadsheet",
-    width, height,
-    package = "RXSpreadsheet"
+  # The JavaScript is necessary because in a multi-page
+  # layout a page that is not visible will have a width and height of 0
+  # which causes the spreadsheet to resize and then fail to render correctly
+  # unless the user resizes
+  # The JavaScript below takes care of that edge case.
+  script <- tags$script(shiny::HTML(paste0("
+    // Get the target div element
+    var divElement = document.getElementById('", outputId,"');
+
+    // Create a new ResizeObserver instance
+    var resizeObserver = new ResizeObserver(function(entries) {
+      // Iterate over the entries
+      for (var entry of entries) {
+        // Log the new dimensions of the div
+        console.log('New dimensions:', entry.contentRect.width, entry.contentRect.height);
+        
+        // if the width and height are 0 and 0,
+        // look for the parent element
+        // and use its width and height
+        if (entry.contentRect.width == 0 && entry.contentRect.height == 0) {
+          // Create a new resize event
+          var event = new Event('resize');
+          // Dispatch the event on the window object
+          window.dispatchEvent(event);
+        }
+
+        // Perform additional actions as needed
+        window.rxspreadsheet[\"", outputId, "\"].reRender();
+      }
+    });
+
+    // Start observing the div element
+    resizeObserver.observe(divElement);
+  ")))
+
+  shiny::tagList(
+    htmlwidgets::shinyWidgetOutput(outputId, "xspreadsheet",
+      width, height,
+      package = "RXSpreadsheet"
+    ),
+    script
   )
 }
 

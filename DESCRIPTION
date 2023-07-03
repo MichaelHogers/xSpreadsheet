@@ -19,6 +19,9 @@ Imports:
     htmlwidgets,
     jsonlite,
     shiny
+Suggests:
+    DT,
+    highcharter
 Depends:
     R (>= 2.10)
 LazyData: true
