@@ -2,12 +2,24 @@
 % Please edit documentation in R/x-spreadsheet.R
 \name{processInputData}
 \alias{processInputData}
-\title{Process data for RXSpreadsheet}
+\title{Process data for xSpreadsheet}
 \usage{
 processInputData(data)
 }
+\arguments{
+\item{data}{The data to render inside the spreadsheet, the following
+options are valid:
+\itemize{
+\item NULL, this will result in an empty spreadsheet with a single sheet
+named "Sheet1"
+\item A single data.frame object, this will result in a single sheet
+spreadsheet where the name of the first sheet is "Sheet1"
+\item A named list where each list entry contains a data.frame object,
+a named sheet is generated in correspondence with the named list
+}}
+}
 \description{
-Process data for RXSpreadsheet,
+Process data for xSpreadsheet,
 this function turns the different structures allowed for data into the same
 format that is expected by the client side logic.
 }

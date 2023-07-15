@@ -112,7 +112,7 @@ cellText <- function(proxy, row, col, text, sheetIndex) {
 #' and storing it as a JSON object
 #' @param data The data object to store,
 #' must be a stringified JSON generated via
-#' getData and received as input$[["<proxy>_data"]]
+#' getData and received as input[[paste0(nameOfproxy + "data")]]
 #' @param path The path to store the data object at
 #' @return TRUE if successfull
 #' @export
@@ -138,7 +138,7 @@ invokeRemote <- function(proxy, method = c(
     "addSheet", "reRender", "deleteSheet", "loadData", "getData",
     "cellText"
 ), args = list()) {
-  if (!inherits(proxy, "rxspreadsheetProxy"))
+  if (!inherits(proxy, "rspreadSheetProxy"))
     stop("Invalid proxy argument; x-spreadsheet proxy object was expected")
 
   method <- match.arg(method)
@@ -164,12 +164,12 @@ invokeRemote <- function(proxy, method = c(
 #' @param deferUntilFlush whether to defer the creation of the proxy
 #' until the next flush cycle
 #' @export
-xSpreadsheetProxy <- function(
+spreadsheetProxy <- function(
     outputId, session = shiny::getDefaultReactiveDomain(),
     deferUntilFlush = TRUE
 ) {
     if (is.null(session)) {
-        stop("xSpreadsheetProxy() must be
+        stop("spreadsheetProxy() must be
             called from within a Shiny app.")
     }
 
@@ -178,5 +178,5 @@ xSpreadsheetProxy <- function(
         rawId = outputId,
         session = session,
         deferUntilFlush = deferUntilFlush
-    ), class = "rxspreadsheetProxy")
+    ), class = "rspreadSheetProxy")
 }

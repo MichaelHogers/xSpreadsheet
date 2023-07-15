@@ -1,0 +1,1 @@
+This Shiny application demonstrates the RXSpreadsheet functionality.

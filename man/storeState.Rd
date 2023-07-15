@@ -9,7 +9,7 @@ storeState(data, path)
 \arguments{
 \item{data}{The data object to store,
 must be a stringified JSON generated via
-getData and received as input$[]}
+getData and received as input[\link{paste0(nameOfproxy + "data")}]}
 
 \item{path}{The path to store the data object at}
 }

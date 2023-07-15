@@ -1,0 +1,1 @@
+This app show cases how the spreadsheet can be used as a data viewer, without allowing users to edit the data, note that you can still access the cell(s) the user selected.

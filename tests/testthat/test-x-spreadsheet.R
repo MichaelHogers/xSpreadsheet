@@ -37,17 +37,17 @@ test_that("processInputData works", {
     expect_error(processInputData(errorEntry))
 })
 
-test_that("xSpreadsheetListToDf works", {
+test_that("spreadsheetListToDf works", {
     # multiple sheets
     jsonList <- jsonlite::fromJSON(
         txt = system.file(
-            "examples/testdata/multiple-sheets.json",
+            "/testdata/multiple-sheets.json",
             package = "RXSpreadsheet"
         ),
         simplifyVector = FALSE
     )
 
-    result <- xSpreadsheetListToDf(jsonList)
+    result <- spreadsheetListToDf(jsonList)
 
     # expect multiple list entries with different names
     expect_true(length(result) > 1)
@@ -58,12 +58,12 @@ test_that("xSpreadsheetListToDf works", {
     # single sheet
     jsonList <- jsonlite::fromJSON(
         txt = system.file(
-            "examples/testdata/single-sheet.json",
+            "/testdata/single-sheet.json",
             package = "RXSpreadsheet"
         ),
         simplifyVector = FALSE
     )
-    result <- xSpreadsheetListToDf(jsonList)
+    result <- spreadsheetListToDf(jsonList)
 
     # expect single list entry
     expect_true(length(result) == 1)

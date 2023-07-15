@@ -14,6 +14,27 @@ HTMLWidgets.widget({
             window.rxspreadsheet = window.rxspreadsheet || {};
 
             if (window.rxspreadsheet[el.id] === undefined) {
+
+              // process message.options.view.height
+              // and message.options.view.width
+              // if they are not defined, then set
+              // each to () => $('#' + id).height()
+              // and () => $('#' + id).width()
+              // which are sensible defaults that will
+              // scale nicely
+              if (message.options.view === undefined) {
+                message.options.view = {};
+              }
+
+              if (message.options.view.height === undefined) {
+                message.options.view.height = {};
+                message.options.view.height = () => $('#' + el.id).height();
+              }
+              if (message.options.view.width === undefined) {
+                message.options.view.width = {};
+                message.options.view.width = () => $('#' + el.id).width();
+              }
+
               window.rxspreadsheet[el.id] = null;
               window.rxspreadsheet[el.id] =
                 x_spreadsheet('#' + el.id, message.options)

@@ -6,7 +6,7 @@
 \usage{
 invokeRemote(
   proxy,
-  method = c("addSheet", "reRender", "deleteSheet", "loadData", "getData"),
+  method = c("addSheet", "reRender", "deleteSheet", "loadData", "getData", "cellText"),
   args = list()
 )
 }
