@@ -53,7 +53,7 @@
 #' @param elementId htmlwidget elementid
 #' @import shiny
 #' @export
-spreadSheet <- function(data, options = NULL, elementId = NULL) {
+spreadsheet <- function(data, options = NULL, elementId = NULL) {
   data <- processInputData(data)
 
   message <- list(
@@ -152,7 +152,7 @@ renderSpreadsheet <- function(expr, env = parent.frame(), quoted = FALSE) {
 #' @description Process data for xSpreadsheet,
 #' this function turns the different structures allowed for data into the same
 #' format that is expected by the client side logic.
-#' @inheritParams spreadSheet
+#' @inheritParams spreadsheet
 processInputData <- function(data) {
   # check if data is a data.frame,
   # or a named list with one or more data.frame entries
@@ -193,6 +193,8 @@ listToSpreadsheet <- function(list) {
 #' @description Convert a data.frame to x-spreadsheet format,
 #' while also adding data types in JSON format for later
 #' conversion back to R.
+#' @param df data.frame
+#' @param headerRow logical, whether to include a header row
 dfToSpreadsheet <- function(df, headerRow = TRUE) {
   # store in a list
   if (headerRow) {

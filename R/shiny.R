@@ -65,7 +65,7 @@ loadData <- function(proxy, data, processing = TRUE) {
 #' @description Retrieves the data object by
 #' sending a call to the client, which then
 #' sends the data to
-#' input[[paste0(proxy, "_data")]]
+#' an input with name paste0(proxy, "_data")
 #'
 #' By retrieving the data object from the client,
 #' you can get the current data in the spreadsheet, including
@@ -91,6 +91,8 @@ getData <- function(proxy) {
 #' @param proxy The x-spreadsheet proxy object
 #' @param row The row index of the cell
 #' @param col The column index of the cell
+#' @param text The text to set the cell to
+#' @param sheetIndex The index of the sheet to set the cell in,
 #' @export
 cellText <- function(proxy, row, col, text, sheetIndex) {
     invokeRemote(
@@ -112,7 +114,7 @@ cellText <- function(proxy, row, col, text, sheetIndex) {
 #' and storing it as a JSON object
 #' @param data The data object to store,
 #' must be a stringified JSON generated via
-#' getData and received as input[[paste0(nameOfproxy + "data")]]
+#' getData and received as proxy id and "_data"
 #' @param path The path to store the data object at
 #' @return TRUE if successfull
 #' @export
@@ -134,6 +136,7 @@ storeState <- function(data, path) {
 #' for which the R -> client communication is sensible
 #' (some API methods are not included as
 #' these would send data from the client to R)
+#' @param args additional arguments to pass to the method
 invokeRemote <- function(proxy, method = c(
     "addSheet", "reRender", "deleteSheet", "loadData", "getData",
     "cellText"

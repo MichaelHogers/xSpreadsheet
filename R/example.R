@@ -18,7 +18,7 @@
 #'   system.file("examples", package="xSpreadsheet")
 #' }
 #' @export
-runExamples <- function(example = NA) {
+runExamples <- function(example = NA, port = 3000) {
   examplesDir <- system.file("examples", package = "xSpreadsheet")
   dir <- resolve(examplesDir, example)
   if (is.null(dir)) {
@@ -32,10 +32,10 @@ runExamples <- function(example = NA) {
 
     errFun(errMsg,
            'Valid examples are "',
-           paste(list.files(examplesDir), collapse='", "'),
+           paste(list.files(examplesDir), collapse = '", "'),
            '"')
   } else {
-    runApp(dir)
+    runApp(dir, port = port)
   }
 }
 

@@ -1,4 +1,4 @@
-# RXSpreadsheet 2.1.1.7
+# xSpreadsheet 2.1.1.7
 
 * Known issues:
 - Merged cells cause a failure when saving spreadsheet state and reloading ->

@@ -6,6 +6,11 @@
 \usage{
 dfToSpreadsheet(df, headerRow = TRUE)
 }
+\arguments{
+\item{df}{data.frame}
+
+\item{headerRow}{logical, whether to include a header row}
+}
 \description{
 Convert a data.frame to x-spreadsheet format,
 while also adding data types in JSON format for later

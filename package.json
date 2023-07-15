@@ -7,18 +7,20 @@
     "man": "man",
     "test": "tests"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "Rscript -e \"devtools::load_all();xSpreadsheet::runExamples('99_e2e')\""
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MichaelHogers/RXSpreadsheet.git"
+    "url": "git+https://github.com/MichaelHogers/xSpreadsheet.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MichaelHogers/RXSpreadsheet/issues"
+    "url": "https://github.com/MichaelHogers/xSpreadsheet/issues"
   },
-  "homepage": "https://github.com/MichaelHogers/RXSpreadsheet#readme",
+  "homepage": "https://github.com/MichaelHogers/xSpreadsheet#readme",
   "devDependencies": {
     "@playwright/test": "^1.33.0"
   }

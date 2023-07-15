@@ -12,6 +12,10 @@ cellText(proxy, row, col, text, sheetIndex)
 \item{row}{The row index of the cell}
 
 \item{col}{The column index of the cell}
+
+\item{text}{The text to set the cell to}
+
+\item{sheetIndex}{The index of the sheet to set the cell in,}
 }
 \description{
 Sets the text of a cell, requires

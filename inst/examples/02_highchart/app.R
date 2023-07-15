@@ -4,6 +4,9 @@ library(highcharter)
 
 ui <- shiny::fluidPage(
     shiny::fluidRow(
+        tags$h3("
+            Update the chart by editing values in column A
+        "),
         shiny::column(
             6,
             xSpreadsheet::spreadsheetOutput(
@@ -90,7 +93,7 @@ server <- function(input, output, session) {
 
         # load only on initialisation
         shiny::isolate({
-            xSpreadsheet::spreadSheet(
+            xSpreadsheet::spreadsheet(
                 data = lapply(chartData(), function(x) {
                     as.data.frame(x)
                 }),
@@ -121,10 +124,10 @@ server <- function(input, output, session) {
             simplifyVector = FALSE
         )
 
-        test <- spreadsheetListToDf(data, headerRow = TRUE)
+        df <- spreadsheetListToDf(data, headerRow = TRUE)
 
         chartData(
-            test
+            df
         )
     })
 }

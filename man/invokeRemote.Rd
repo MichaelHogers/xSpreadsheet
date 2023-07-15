@@ -19,6 +19,8 @@ https://hondrytravis.com/x-spreadsheet-doc/
 for which the R -> client communication is sensible
 (some API methods are not included as
 these would send data from the client to R)}
+
+\item{args}{additional arguments to pass to the method}
 }
 \description{
 Allow to send calls to the client from a R Shiny session

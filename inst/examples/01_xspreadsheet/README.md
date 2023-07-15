@@ -1,1 +1,1 @@
-This Shiny application demonstrates the RXSpreadsheet functionality.
+This Shiny application demonstrates the xSpreadsheet functionality.

@@ -1,19 +1,18 @@
-test_that("xSpreadsheet works with different data options", {
-    test <- xSpreadsheet(data = data.frame(a = 1, b = 1))
+test_that("spreadSheet works with different data options", {
+    test <- spreadsheet(data = data.frame(a = 1, b = 1))
     expect_s3_class(test, "xspreadsheet")
 
     list1Entry <- list("Sheet" = data.frame(
         a = 1, b = 2
     ))
-    test <- xSpreadsheet(data = data.frame(a = 1, b = 1))
+    test <- spreadsheet(data = data.frame(a = 1, b = 1))
     expect_s3_class(test, "xspreadsheet")
-
 
     list2Entries <- list(
         "Sheet 1" = data.frame(a = 1, b = 1),
         "Sheet 2" = data.frame(c = 3, d = 4)
     )
-    test <- xSpreadsheet(data = list2Entries)
+    test <- spreadsheet(data = list2Entries)
     expect_s3_class(test, "xspreadsheet")
 
 })
@@ -42,7 +41,7 @@ test_that("spreadsheetListToDf works", {
     jsonList <- jsonlite::fromJSON(
         txt = system.file(
             "/testdata/multiple-sheets.json",
-            package = "RXSpreadsheet"
+            package = "xSpreadsheet"
         ),
         simplifyVector = FALSE
     )
@@ -59,7 +58,7 @@ test_that("spreadsheetListToDf works", {
     jsonList <- jsonlite::fromJSON(
         txt = system.file(
             "/testdata/single-sheet.json",
-            package = "RXSpreadsheet"
+            package = "spreadSheet"
         ),
         simplifyVector = FALSE
     )

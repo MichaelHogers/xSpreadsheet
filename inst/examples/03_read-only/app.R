@@ -5,7 +5,7 @@ ui <- shiny::fluidPage(
     shiny::fluidRow(
         shiny::column(12,
             tags$h3("This is a read-only x-spreadsheet, you can
-                set options$mode = 'read' in xSpreadsheet().
+                set options$mode = 'read' in xspreadsheet().
             "),
             xSpreadsheet::spreadsheetOutput(
                             outputId = ("example"),
@@ -38,7 +38,7 @@ server <- function(input, output, session) {
 
     # First spreadsheet
     output$example <- xSpreadsheet::renderSpreadsheet({
-        xSpreadsheet::xSpreadsheet(
+        xSpreadsheet::xspreadsheet(
                 data = list(
                     "Sheet 1" = data.frame(
                         "Id" = c(1, 2, 3, 4, 5),
@@ -83,7 +83,7 @@ server <- function(input, output, session) {
 
     # Second spreadsheet
     output$example2 <- xSpreadsheet::renderSpreadsheet({
-        xSpreadsheet::xSpreadsheet(
+        xSpreadsheet::xspreadsheet(
                 data = list(
                     "Sheet 1" = data.frame(
                         "Id" = c(1, 2, 3, 4, 5),

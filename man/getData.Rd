@@ -13,7 +13,7 @@ getData(proxy)
 Retrieves the data object by
 sending a call to the client, which then
 sends the data to
-input[\link{paste0(proxy, "_data")}]
+an input with name paste0(proxy, "_data")
 
 By retrieving the data object from the client,
 you can get the current data in the spreadsheet, including

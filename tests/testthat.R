@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(RXSpreadsheet)
+library(xSpreadsheet)
 
-test_check("RXSpreadsheet")
+test_check("xSpreadsheet")

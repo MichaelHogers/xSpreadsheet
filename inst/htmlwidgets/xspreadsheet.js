@@ -22,19 +22,19 @@ HTMLWidgets.widget({
               // and () => $('#' + id).width()
               // which are sensible defaults that will
               // scale nicely
-              if (message.options.view === undefined) {
-                message.options.view = {};
-              }
+              // Ensure message.options exists
+              message.options = message.options || {};
 
+              // Ensure message.options.view exists
+              message.options.view = message.options.view || {};
+
+              // Set sensible defaults for height and width if they are not defined
               if (message.options.view.height === undefined) {
-                message.options.view.height = {};
                 message.options.view.height = () => $('#' + el.id).height();
               }
               if (message.options.view.width === undefined) {
-                message.options.view.width = {};
                 message.options.view.width = () => $('#' + el.id).width();
               }
-
               window.rxspreadsheet[el.id] = null;
               window.rxspreadsheet[el.id] =
                 x_spreadsheet('#' + el.id, message.options)

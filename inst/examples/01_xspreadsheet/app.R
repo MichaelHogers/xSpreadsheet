@@ -183,7 +183,7 @@ server <- function(input, output) {
     output$example <- xSpreadsheet::renderSpreadsheet({
         input$triggerrenderSpreadsheet
 
-        xSpreadsheet::spreadSheet(
+        xSpreadsheet::spreadsheet(
             data = list(
                 "Sheet 1" = data.frame(
                     "Id" = c(1, 2, 3, 4, 5),

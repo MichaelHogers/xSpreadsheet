@@ -4,7 +4,7 @@
 \alias{runExamples}
 \title{Run xSpreadsheet Example Applications}
 \usage{
-runExamples(example = NA)
+runExamples(example = NA, port = 3000)
 }
 \arguments{
 \item{example}{The name of the example to run, or \code{NA} (the default) to

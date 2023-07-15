@@ -1,4 +1,4 @@
-^RXSpreadsheet\.Rproj$
+^xSpreadsheet\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
@@ -9,3 +9,7 @@
 ^docs$
 ^pkgdown$
 ^data-raw$
+package-lock.json
+package.json
+playwright.config.js
+.lintr
