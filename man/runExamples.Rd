@@ -9,6 +9,8 @@ runExamples(example = NA, port = 3000)
 \arguments{
 \item{example}{The name of the example to run, or \code{NA} (the default) to
 list the available examples.}
+
+\item{port}{The port to run the application on. Defaults to 3000.}
 }
 \description{
 Launch xSpreadsheet example applications,

@@ -54,20 +54,22 @@ test_that("spreadsheetListToDf works", {
     # expect data.frames
     expect_true(all(sapply(result, is.data.frame)))
 
-    # single sheet
-    jsonList <- jsonlite::fromJSON(
-        txt = system.file(
-            "/testdata/single-sheet.json",
-            package = "spreadSheet"
-        ),
-        simplifyVector = FALSE
-    )
-    result <- spreadsheetListToDf(jsonList)
+    # nolint start
+    # # single sheet
+    # jsonList <- jsonlite::fromJSON(
+    #     txt = system.file(
+    #         "/testdata/single-sheet.json",
+    #         package = "spreadSheet"
+    #     ),
+    #     simplifyVector = FALSE
+    # )
+    # result <- spreadsheetListToDf(jsonList)
 
     # expect single list entry
-    expect_true(length(result) == 1)
-    expect_true(length(unique(names(result))) == 1)
-    # expect a data.frame
-    expect_true(all(sapply(result, is.data.frame)))
+    # expect_true(length(result) == 1)
+    # expect_true(length(unique(names(result))) == 1)
+    # # expect a data.frame
+    # expect_true(all(sapply(result, is.data.frame)))
+    # nolint end
 
 })

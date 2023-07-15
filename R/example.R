@@ -5,6 +5,7 @@
 #'
 #' @param example The name of the example to run, or `NA` (the default) to
 #'   list the available examples.
+#' @param port The port to run the application on. Defaults to 3000.
 #' @examples
 #' ## Only run this example in interactive R sessions
 #' if (interactive()) {
