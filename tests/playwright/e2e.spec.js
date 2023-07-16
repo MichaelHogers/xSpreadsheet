@@ -90,6 +90,8 @@ test('has title', async ({ page }) => {
       return el.textContent !== changed2;
     }
   );
+  // wait for 5 seconds
+  await page.waitForTimeout(5000);
   const changed3 = await page.$eval('#change_ts', el => el.textContent);
   expect(changed3).not.toBe(changed2);
 
@@ -101,6 +103,8 @@ test('has title', async ({ page }) => {
       return el.textContent !== changed3;
     }
   );
+  // wait for 5 seconds
+  await page.waitForTimeout(5000);
 
   const changed4 = await page.$eval('#change_ts', el => el.textContent);
   expect(changed4).not.toBe(changed3);
