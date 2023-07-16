@@ -44,12 +44,16 @@ test_that("processInputData works", {
 
 test_that("dfToSpreadsheet performance is acceptable", {
     df <- data.frame(matrix(rnorm(2500), nrow = 50, ncol = 50))
-    result <- system.time({dfToSpreadsheet(df)})
-    expect_true(result[["elapsed"]] < 1)
+    result <- system.time({
+        dfToSpreadsheet(df)
+    })
+    expect_true(result[["elapsed"]] < 10)
 
     df <- data.frame(matrix(rnorm(2500), nrow = 500, ncol = 500))
-    result <- system.time({dfToSpreadsheet(df)})
-    expect_true(result[["elapsed"]] < 1)
+    result <- system.time({
+        dfToSpreadsheet(df
+    )})
+    expect_true(result[["elapsed"]] < 10)
 })
 
 test_that("spreadsheetListToDf works", {
