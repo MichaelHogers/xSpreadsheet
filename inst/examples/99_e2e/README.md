@@ -1,1 +1,1 @@
-This example app is for use in end-to-end tests.
+This example app is for use in end-to-end tests. Run `npx playwright test`.
