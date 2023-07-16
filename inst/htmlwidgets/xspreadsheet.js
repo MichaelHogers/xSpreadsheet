@@ -57,7 +57,7 @@ HTMLWidgets.widget({
                         {"row": ri + 1, "cell": ci + 1, "value": cell},
                         ({priority: "event"})
                       );
-                  }).on( 'cells-selected', (cell, { sri, sci, eri, eci }) => {
+                  }).on('cells-selected', (cell, { sri, sci, eri, eci }) => {
                     Shiny.setInputValue(
                       el.id + "_cells_selected",
                       {"start_row": sri + 1, "start_cell": sci + 1,
@@ -118,21 +118,69 @@ Shiny.addCustomMessageHandler("xspreadsheet-calls", function(data) {
     rxspreadsheet[id].addSheet(
       data.call.args.name,
       data.call.args.active
-    )
+    ).reRender();
   } else if (data.call.method === "reRender") {
     rxspreadsheet[id].reRender();
   } else if (data.call.method === "deleteSheet") {
-    rxspreadsheet[id].deleteSheet();
+    // deleteSheet() does not work
+    // rxspreadsheet[id].deleteSheet().reRender();
+
+    // instead we use javascript and simulate clicking
+    // the delete button of the active sheet
+
+    // if sheetIndex is not defined, then delete the active sheet
+    // otherwise delete the sheet with index sheetIndex
+    if (data.call.args.sheetIndex === undefined || data.call.args.sheetIndex === null) {
+      var selector = "#" + id + " > div > div.x-spreadsheet-bottombar > ul > li.active";
+    } else {
+      // + 2, css nth-child is 1 indexed and the first child is irrelevant
+      var selector = "#" + id + " > div > div.x-spreadsheet-bottombar > ul > li:nth-child(" +
+      data.call.args.sheetIndex + 2 + ")";
+    }
+
+    // this right clicks the active sheet
+    var contextMenuEvent = new MouseEvent(
+      'contextmenu', {
+        bubbles: true,
+        cancelable: true,
+        view: window
+      }
+    );
+    document.querySelector(
+      selector
+    ).dispatchEvent(contextMenuEvent);
+
+    // find the button with "Delete" and click it
+    var deleteTag = document.querySelectorAll(
+      "#" + id + " > div > div.x-spreadsheet-bottombar > div > div"
+    );
+
+    deleteTag.forEach((element) => {
+      if (element.textContent.includes("Delete")) {
+        element.click();
+      }
+    });
+
   } else if (data.call.method === "loadData") {
     rxspreadsheet[id].loadData(data.call.args.data);
   } else if (data.call.method === "cellText") {
-    debugger;
     rxspreadsheet[id].cellText(
-      ci = data.call.args.rowIndex,
-      ri = data.call.args.colIndex,
+      ri = data.call.args.rowIndex,
+      ci = data.call.args.colIndex,
       text = data.call.args.text,
       data.call.args.sheetIndex
-    )
+    ).reRender();
+    // rerender, this is necessary for the cellText
+    // call to be reflected in the UI
+
+    if (data.call.args.triggerChange) {
+      Shiny.setInputValue(
+        id + "_change",
+        // timestamp UTC
+        new Date().toISOString()
+      );
+    }
+
   } else if (data.call.method === "getData") {
     // convert JSON to a string
     // so Shiny does not try to parse it

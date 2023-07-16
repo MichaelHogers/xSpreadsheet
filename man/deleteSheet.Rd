@@ -10,6 +10,5 @@ deleteSheet(proxy)
 \item{proxy}{The x-spreadsheet proxy object}
 }
 \description{
-Seems broken in x-spreadsheet,
-not exporting until fixed.
+Delete the current active sheet
 }

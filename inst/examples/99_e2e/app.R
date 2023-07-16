@@ -3,15 +3,17 @@ library(shiny)
 
 ui <- shiny::fluidPage(
     shiny::fluidRow(
-        shiny::column(12,
+        shiny::column(
+            12,
             xSpreadsheet::spreadsheetOutput(
-                            outputId = ("example"),
-                            height = "100vh",
-                            width = "100vw"
+                outputId = ("example"),
+                height = "100vh",
+                width = "100vw"
             )
         ),
         # for testing reactivity via playwright
-        shiny::column(12,
+        shiny::column(
+            12,
 
             # cell selected
             shiny::uiOutput(
@@ -30,6 +32,23 @@ ui <- shiny::fluidPage(
             shiny::uiOutput(
                 outputId = "change_ts"
             )
+        ),
+
+        # proxy interaction
+        shiny::column(
+            12,
+            shiny::actionButton("addSheet",
+                label = "Add a sheet"
+            ),
+            shiny::actionButton("setCellText",
+                label = "Set cell text"
+            ),
+            shiny::actionButton("deleteSheet",
+                label = "Delete a sheet"
+            ),
+            shiny::actionButton("deleteSheetIndex",
+                label = "Delete a sheet using sheetIndex"
+            )
         )
     )
 )
@@ -37,22 +56,22 @@ ui <- shiny::fluidPage(
 server <- function(input, output, session) {
     output$example <- xSpreadsheet::renderSpreadsheet({
         xSpreadsheet::spreadsheet(
-                data = list(
-                    "Sheet 1" = data.frame(
-                        "Id" = c(1, 2, 3, 4, 5),
-                        "Label" = c("A", "B", "C", "D", "E"),
-                        "Timestamp" = rep(Sys.time(), 5)
-                    ),
-                    "Sheet 2" =
-                        data.frame(matrix(rnorm(2500),
-                            nrow = 50, ncol = 50
-                        )),
-                    "Sheet 3" =
-                        data.frame(matrix(rnorm(2500),
-                            nrow = 50, ncol = 50
-                        ))
-                )
+            data = list(
+                "Sheet 1" = data.frame(
+                    "Id" = c(1, 2, 3, 4, 5),
+                    "Label" = c("A", "B", "C", "D", "E"),
+                    "Timestamp" = rep(Sys.time(), 5)
+                ),
+                "Sheet 2" =
+                    data.frame(matrix(rnorm(2500),
+                        nrow = 50, ncol = 50
+                    )),
+                "Sheet 3" =
+                    data.frame(matrix(rnorm(2500),
+                        nrow = 50, ncol = 50
+                    ))
             )
+        )
     })
 
     # cell selected
@@ -74,8 +93,55 @@ server <- function(input, output, session) {
         input$example_change
     })
 
+    #### proxy interaction
 
+    # create proxy object
+    proxy <- xSpreadsheet::spreadsheetProxy("example")
 
+    ## add a sheet
+    shiny::observeEvent(input$addSheet,
+        {
+            # we test in e2e.spec.js that "new_sheet" is added
+            xSpreadsheet::addSheet(proxy,
+                name = "new_sheet", active = FALSE
+            )
+        },
+        ignoreInit = TRUE
+    )
+
+    ## set a cellText
+    shiny::observeEvent(input$setCellText,
+        {
+            # we test in e2e.spec.js that "cellText" triggers a change
+            xSpreadsheet::cellText(proxy,
+                row = 5,
+                col = 5,
+                text = "Testing",
+                sheetIndex = 1
+            )
+        },
+        ignoreInit = TRUE
+    )
+
+    ## delete a sheet
+    shiny::observeEvent(input$deleteSheet,
+        {
+            # we test in e2e.spec.js that "new_sheet" is deleted
+            xSpreadsheet::deleteSheet(proxy)
+        },
+        ignoreInit = TRUE
+    )
+
+    # delete a sheet using sheetIndex
+    shiny::observeEvent(input$deleteSheetIndex,
+        {
+            # we test in e2e.spec.js that "new_sheet" is deleted
+            xSpreadsheet::deleteSheet(proxy, sheetIndex = 1)
+        },
+        ignoreInit = TRUE
+    )
+
+    #### end proxy interaction
 }
 
 shiny::shinyApp(ui, server)

@@ -26,15 +26,35 @@ reRender <- function(proxy) {
     )
 }
 
-#' @title Delete the current active sheet
-#' @description Seems broken in x-spreadsheet,
-#' not exporting until fixed.
+#' @title Delete a sheet
+#' @description Deletes a sheet from the spreadsheet,
+#' defaults to deleting the active sheet. Only
+#' deletes sheets if at least two sheets are present.
 #' @param proxy The x-spreadsheet proxy object
-deleteSheet <- function(proxy) {
+#' @param sheetIndex The index of the sheet to delete,
+#' uses R 1-based indexing. If left NULL, the active sheet
+#' is deleted.
+#' @export
+deleteSheet <- function(proxy, sheetIndex = NULL) {
+    if (!is.null(sheetIndex) && sheetIndex <= 0) {
+        warning(
+            "xSpreadsheet: sheetIndex is smaller than or equal to 0,
+            setting it to 1 as 1-based indexing is expected."
+        )
+        sheetIndex <- 1
+    }
+
     invokeRemote(
         proxy = proxy,
         # API method x-spreadsheet
-        method = "deleteSheet"
+        method = "deleteSheet",
+        args = list(
+            sheetIndex = if (is.null(sheetIndex)) {
+                NULL
+            } else {
+                sheetIndex - 1
+            }
+        )
     )
 }
 
@@ -93,17 +113,32 @@ getData <- function(proxy) {
 #' @param col The column index of the cell
 #' @param text The text to set the cell to
 #' @param sheetIndex The index of the sheet to set the cell in,
+#' uses R 1-based indexing.
+#' @param triggerChange Whether to trigger a change event,
+#' defaults to TRUE, will trigger an update to the _change
+#' input value
 #' @export
-cellText <- function(proxy, row, col, text, sheetIndex) {
+cellText <- function(proxy, row, col, text, sheetIndex,
+    triggerChange = TRUE) {
+
+    if (sheetIndex == 0) {
+        warning(
+            "xSpreadsheet: sheetIndex is 0,
+            setting it to 1 as 1-based indexing is expected."
+        )
+        sheetIndex <- 1
+    }
+
     invokeRemote(
         proxy = proxy,
         # API method x-spreadsheet
         method = "cellText",
         args = list(
-            row = row - 1,
-            col = col - 1,
+            rowIndex = row - 1,
+            colIndex = col - 1,
             text = text,
-            sheetIndex = sheetIndex - 1
+            sheetIndex = sheetIndex - 1,
+            triggerChange = triggerChange
         )
     )
 }

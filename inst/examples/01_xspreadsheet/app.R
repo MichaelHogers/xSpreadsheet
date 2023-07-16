@@ -25,14 +25,13 @@ ui <- shiny::fluidPage(
                     12,
                     shiny::tags$h5("Interacting with sheets")
                 ),
-                # This is broken in x-spreadsheet it seems
-                # shiny::column(
-                #     12,
-                #     shiny::tags$div(class = "text-muted",
-                #     "xSpreadsheet::deleteSheet"),
-                #     shiny::actionButton(("delete"),
-                #     label = "Delete active sheet")
-                # ),
+                shiny::column(
+                    12,
+                    shiny::tags$div(class = "text-muted",
+                    "xSpreadsheet::deleteSheet"),
+                    shiny::actionButton(("delete"),
+                    label = "Delete active sheet")
+                ),
                 # add a sheet
                 shiny::tags$div(
                     class = "col",

@@ -2,6 +2,7 @@
 
 export(addSheet)
 export(cellText)
+export(deleteSheet)
 export(getData)
 export(loadData)
 export(reRender)

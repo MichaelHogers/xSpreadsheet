@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/MichaelHogers/xSpreadsheet#readme",
   "devDependencies": {
-    "@playwright/test": "^1.33.0"
+    "@playwright/test": "^1.36.1"
   }
 }

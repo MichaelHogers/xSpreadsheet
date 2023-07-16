@@ -48,3 +48,32 @@ test_that("invokeRemote works as expected on the R side", {
     })
 
 })
+
+test_that("deleteSheet works", {
+    proxy <- spreadsheetProxy("test", shiny::MockShinySession$new())
+    result <- deleteSheet(
+        proxy = proxy
+    )
+    expect_s3_class(result, "rspreadSheetProxy")
+
+    result <- deleteSheet(
+        proxy = proxy,
+        sheetIndex = 1
+    )
+    expect_s3_class(result, "rspreadSheetProxy")
+
+
+    testthat::expect_warning({
+        result <- deleteSheet(
+            proxy = proxy,
+            sheetIndex = 0
+        )
+    })
+
+    testthat::expect_warning({
+        result <- deleteSheet(
+            proxy = proxy,
+            sheetIndex = -1
+        )
+    })
+})
