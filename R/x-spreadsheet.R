@@ -149,10 +149,20 @@ renderSpreadsheet <- function(expr, env = parent.frame(), quoted = FALSE) {
 
 #' @title Process data for xSpreadsheet
 #'
-#' @description Process data for xSpreadsheet,
-#' this function turns the different structures allowed for data into the same
-#' format that is expected by the client side logic.
+#' @description This function processes R data.frames into
+#' the x-spreadsheet required list format. Note that the
+#' list data is sent as JSON to the client.
+#'
+#' @param data The data to render inside the spreadsheet, the following
+#' options are valid:
+#' - NULL, this will result in an empty spreadsheet with a single sheet
+#' named "Sheet1"
+#' - A single data.frame object, this will result in a single sheet
+#' spreadsheet where the name of the first sheet is "Sheet1"
+#' - A named list where each list entry contains a data.frame object,
+#' a named sheet is generated in correspondence with the named list
 #' @inheritParams spreadsheet
+#' @return A list containing the processed data
 processInputData <- function(data) {
   # check if data is a data.frame,
   # or a named list with one or more data.frame entries
@@ -163,10 +173,7 @@ processInputData <- function(data) {
     data <- list("Sheet1" = data)
   } else if (is.list(data)) {
     # check if list contains data.frame entries
-    if (all(sapply(data, is.data.frame))) {
-      # named list with data.frame entries
-      data <- data
-    } else {
+    if (!all(sapply(data, is.data.frame))) {
       # named list with other entries
       stop("Data must be a data.frame or a named list with data.frame entries")
     }
@@ -208,25 +215,20 @@ dfToSpreadsheet <- function(df, headerRow = TRUE) {
     rowSeq <- seq_len(nrow(l))
     colSeq <- seq_len(ncol(l))
 
-    rows <- lapply(rowSeq, function(i) {
-      cells <- lapply(colSeq, function(j) {
-        list(text = l[i, j],
-             # add data type for accurate conversion back to R
-             # possible improvement: shorten type labels to save space
-             type = typeof(l[i, j]),
-             header = if (i == 1) {
-               TRUE
-             } else {
-               FALSE
-             }
+    rows <- vector("list", nrow(l))
+
+    for (i in rowSeq) {
+      cells <- vector("list", ncol(l))
+      cells <- mapply(function(text, type, header) {
+        list(
+          text = text,
+          type = type,
+          header = header
         )
-      })
-      # the - 1 is important to be consistent with
-      # the JS indexing
-      # -> removing this will result in data being inserted
-      # 1 column to the right
-      list(cells = setNames(cells, seq_along(cells) - 1))
-    })
+      }, l[i, colSeq], typeof(l[i, colSeq]),
+         seq_along(colSeq) == 1, SIMPLIFY = FALSE)
+      rows[[i]] <- list(cells = setNames(cells, seq_along(cells) - 1))
+    }
     rows
   })
 
@@ -248,7 +250,7 @@ dfToSpreadsheet <- function(df, headerRow = TRUE) {
 #' - name
 #' - rows, which contains "cells", which contains entries with "text"
 #' other fields are ignored for now
-#' (customise this function and jsso it carries the following metadata:
+#' (customise this function and json it carries the following metadata:
 #' - field type for conversion
 #' - column names Y/N
 #' )

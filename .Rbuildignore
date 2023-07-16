@@ -12,6 +12,7 @@
 package-lock.json
 package.json
 playwright.config.js
+playwright-report
 .lintr
 node_modules
 test-results

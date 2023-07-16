@@ -48,7 +48,13 @@ ui <- shiny::fluidPage(
             ),
             shiny::actionButton("deleteSheetIndex",
                 label = "Delete a sheet using sheetIndex"
-            )
+            ),
+            shiny::actionButton("loadDataDf",
+                label = "Load data (single data.frame)"
+            ),
+            shiny::actionButton("loadDataList",
+                label = "Load data (list of data.frames)"
+            ),
         )
     )
 )
@@ -70,6 +76,14 @@ server <- function(input, output, session) {
                     data.frame(matrix(rnorm(2500),
                         nrow = 50, ncol = 50
                     ))
+            ),
+            options = list(
+                row = list(
+                    len = 500
+                ),
+                col = list(
+                    len = 500
+                )
             )
         )
     })
@@ -132,11 +146,49 @@ server <- function(input, output, session) {
         ignoreInit = TRUE
     )
 
-    # delete a sheet using sheetIndex
+    ## delete a sheet using sheetIndex
     shiny::observeEvent(input$deleteSheetIndex,
         {
             # we test in e2e.spec.js that "new_sheet" is deleted
             xSpreadsheet::deleteSheet(proxy, sheetIndex = 1)
+        },
+        ignoreInit = TRUE
+    )
+
+    ## load data, simple df
+    shiny::observeEvent(input$loadDataDf,
+        {
+            xSpreadsheet::loadData(proxy,
+                data.frame(
+                    "Id" = c(1, 2, 3, 4, 5),
+                    "Label" = c("A", "B", "C", "D", "E"),
+                    "Timestamp" = rep(Sys.time(), 5)
+                )
+            )
+        },
+        ignoreInit = TRUE
+    )
+
+    ## load data, list of df
+    shiny::observeEvent(input$loadDataList,
+        {
+            xSpreadsheet::loadData(proxy,
+                list(
+                    "Sheet 1" = data.frame(
+                        "Id" = c(1, 2, 3, 4, 5),
+                        "Label" = c("A", "B", "C", "D", "E"),
+                        "Timestamp" = rep(Sys.time(), 5)
+                    ),
+                    "Sheet 2" =
+                        data.frame(matrix(rnorm(2500),
+                            nrow = 200, ncol = 100
+                        )),
+                    "Sheet 3" =
+                        data.frame(matrix(rnorm(2500),
+                            nrow = 50, ncol = 50
+                        ))
+                )
+            )
         },
         ignoreInit = TRUE
     )

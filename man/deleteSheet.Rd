@@ -2,13 +2,19 @@
 % Please edit documentation in R/shiny.R
 \name{deleteSheet}
 \alias{deleteSheet}
-\title{Delete the current active sheet}
+\title{Delete a sheet}
 \usage{
-deleteSheet(proxy)
+deleteSheet(proxy, sheetIndex = NULL)
 }
 \arguments{
 \item{proxy}{The x-spreadsheet proxy object}
+
+\item{sheetIndex}{The index of the sheet to delete,
+uses R 1-based indexing. If left NULL, the active sheet
+is deleted.}
 }
 \description{
-Delete the current active sheet
+Deletes a sheet from the spreadsheet,
+defaults to deleting the active sheet. Only
+deletes sheets if at least two sheets are present.
 }

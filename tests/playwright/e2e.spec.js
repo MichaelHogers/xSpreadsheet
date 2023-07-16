@@ -78,6 +78,34 @@ test('has title', async ({ page }) => {
   const changed2 = await page.$eval('#change_ts', el => el.textContent);
   expect(changed2).not.toBe(changed);
 
+  // "loadData"
+  // click on loadDataDf and loadDataList
+  // wait a moment
+  await page.waitForTimeout(100);
+
+  await page.click('#loadDataDf');
+  await page.waitForFunction(
+    (changed2) => {
+      const el = document.querySelector('#change_ts');
+      return el.textContent !== changed2;
+    }
+  );
+  const changed3 = await page.$eval('#change_ts', el => el.textContent);
+  expect(changed3).not.toBe(changed2);
+
+
+  await page.click('#loadDataList');
+  await page.waitForFunction(
+    (changed3) => {
+      const el = document.querySelector('#change_ts');
+      return el.textContent !== changed3;
+    }
+  );
+
+  const changed4 = await page.$eval('#change_ts', el => el.textContent);
+  expect(changed4).not.toBe(changed3);
+  //
+
   ///////// End of test proxy functionality
 
 });

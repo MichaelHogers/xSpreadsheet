@@ -16,6 +16,9 @@ addSheet <- function(proxy, name, active = TRUE) {
 }
 
 #' @title Rerenders the spreadsheet
+#' @description This function is most likely not needed
+#' as the rerendering logic is handled already by the
+#' internal spreadsheet functions.
 #' @param proxy The x-spreadsheet proxy object
 #' @export
 reRender <- function(proxy) {
@@ -59,7 +62,6 @@ deleteSheet <- function(proxy, sheetIndex = NULL) {
 }
 
 #' @title Reload all data
-#' @param proxy The x-spreadsheet proxy object
 #' @param data The new data, must be a data.frame or a
 #' named list with data.frame entries
 #' @param processing Whether to process the data,
@@ -67,17 +69,21 @@ deleteSheet <- function(proxy, sheetIndex = NULL) {
 #' previously stored JSON data, set this to FALSE.
 #' If a data.frame or a list of data.frames is provided,
 #' set this to TRUE.
+#' @inheritParams cellText
 #' @export
-loadData <- function(proxy, data, processing = TRUE) {
+loadData <- function(proxy, data, processing = TRUE,
+    triggerChange = TRUE) {
     invokeRemote(
         proxy = proxy,
         # API method x-spreadsheet
         method = "loadData",
         args = list(data = if (processing) {
-            processInputData(data)
-        } else {
-            data
-        })
+                processInputData(data)
+            } else {
+                data
+            },
+            triggerChange = triggerChange
+        )
     )
 }
 
@@ -197,10 +203,14 @@ invokeRemote <- function(proxy, method = c(
 }
 
 #' @title Create a x-spreadsheet proxy object
-#' @param outputId the output variable to read the x-spreadsheet
+#' @param outputId the id of the table to be manipulated
+#' (the same id as the one you used in
+#' \code{\link{spreadsheetOutput}()})
 #' @param session the shiny session
-#' @param deferUntilFlush whether to defer the creation of the proxy
-#' until the next flush cycle
+#' @param deferUntilFlush whether an action
+#' should be carried out right away,
+#' or should be held until after the next
+#' time all of the outputs are updated
 #' @export
 spreadsheetProxy <- function(
     outputId, session = shiny::getDefaultReactiveDomain(),

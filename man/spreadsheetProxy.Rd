@@ -11,12 +11,16 @@ spreadsheetProxy(
 )
 }
 \arguments{
-\item{outputId}{the output variable to read the x-spreadsheet}
+\item{outputId}{the id of the table to be manipulated
+(the same id as the one you used in
+\code{\link{spreadsheetOutput}()})}
 
 \item{session}{the shiny session}
 
-\item{deferUntilFlush}{whether to defer the creation of the proxy
-until the next flush cycle}
+\item{deferUntilFlush}{whether an action
+should be carried out right away,
+or should be held until after the next
+time all of the outputs are updated}
 }
 \description{
 Create a x-spreadsheet proxy object

@@ -30,10 +30,10 @@ HTMLWidgets.widget({
 
               // Set sensible defaults for height and width if they are not defined
               if (message.options.view.height === undefined) {
-                message.options.view.height = () => $('#' + el.id).height();
+                message.options.view.height = () => document.querySelector('#' + el.id).offsetHeight;
               }
               if (message.options.view.width === undefined) {
-                message.options.view.width = () => $('#' + el.id).width();
+                message.options.view.width = () => document.querySelector('#' + el.id).offsetWidth;
               }
               window.rxspreadsheet[el.id] = null;
               window.rxspreadsheet[el.id] =
@@ -163,6 +163,14 @@ Shiny.addCustomMessageHandler("xspreadsheet-calls", function(data) {
 
   } else if (data.call.method === "loadData") {
     rxspreadsheet[id].loadData(data.call.args.data);
+    if (data.call.args.triggerChange) {
+      // set _change
+      Shiny.setInputValue(
+        id + "_change",
+        // timestamp UTC
+        new Date().toISOString()
+      );
+    }
   } else if (data.call.method === "cellText") {
     rxspreadsheet[id].cellText(
       ri = data.call.args.rowIndex,

@@ -4,7 +4,7 @@
 \alias{cellText}
 \title{Set the value in a cell}
 \usage{
-cellText(proxy, row, col, text, sheetIndex)
+cellText(proxy, row, col, text, sheetIndex, triggerChange = TRUE)
 }
 \arguments{
 \item{proxy}{The x-spreadsheet proxy object}
@@ -15,7 +15,12 @@ cellText(proxy, row, col, text, sheetIndex)
 
 \item{text}{The text to set the cell to}
 
-\item{sheetIndex}{The index of the sheet to set the cell in,}
+\item{sheetIndex}{The index of the sheet to set the cell in,
+uses R 1-based indexing.}
+
+\item{triggerChange}{Whether to trigger a change event,
+defaults to TRUE, will trigger an update to the _change
+input value}
 }
 \description{
 Sets the text of a cell, requires

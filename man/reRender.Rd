@@ -10,5 +10,7 @@ reRender(proxy)
 \item{proxy}{The x-spreadsheet proxy object}
 }
 \description{
-Rerenders the spreadsheet
+This function is most likely not needed
+as the rerendering logic is handled already by the
+internal spreadsheet functions.
 }

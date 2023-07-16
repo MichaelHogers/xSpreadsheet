@@ -5,7 +5,13 @@ test_that("spreadSheet works with different data options", {
     list1Entry <- list("Sheet" = data.frame(
         a = 1, b = 2
     ))
-    test <- spreadsheet(data = data.frame(a = 1, b = 1))
+    test <- spreadsheet(data = data.frame(a = 1, b = 1),
+    options = list(
+        view = list(
+            height = "500px",
+            width = "500px"
+        )
+    ))
     expect_s3_class(test, "xspreadsheet")
 
     list2Entries <- list(
@@ -34,6 +40,16 @@ test_that("processInputData works", {
 
     errorEntry <- "invalid"
     expect_error(processInputData(errorEntry))
+})
+
+test_that("dfToSpreadsheet performance is acceptable", {
+    df <- data.frame(matrix(rnorm(2500), nrow = 50, ncol = 50))
+    result <- system.time({dfToSpreadsheet(df)})
+    expect_true(result[["elapsed"]] < 1)
+
+    df <- data.frame(matrix(rnorm(2500), nrow = 500, ncol = 500))
+    result <- system.time({dfToSpreadsheet(df)})
+    expect_true(result[["elapsed"]] < 1)
 })
 
 test_that("spreadsheetListToDf works", {
