@@ -45,7 +45,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">loadData</span><span class="op">(</span><span class="va">proxy</span>, <span class="va">data</span>, processing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">loadData</span><span class="op">(</span><span class="va">proxy</span>, <span class="va">data</span>, processing <span class="op">=</span> <span class="cn">TRUE</span>, triggerChange <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -65,6 +65,12 @@ defaults to TRUE. If the data is being loaded based on
 previously stored JSON data, set this to FALSE.
 If a data.frame or a list of data.frames is provided,
 set this to TRUE.</p></dd>
+
+
+<dt>triggerChange</dt>
+<dd><p>Whether to trigger a change event,
+defaults to TRUE, will trigger an update to the _change
+input value</p></dd>
 
 </dl></div>
 

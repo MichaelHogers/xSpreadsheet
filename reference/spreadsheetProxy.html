@@ -55,7 +55,9 @@
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>outputId</dt>
-<dd><p>the output variable to read the x-spreadsheet</p></dd>
+<dd><p>the id of the table to be manipulated
+(the same id as the one you used in
+<code><a href="xSpreadsheet-shiny.html">spreadsheetOutput</a>()</code>)</p></dd>
 
 
 <dt>session</dt>
@@ -63,8 +65,10 @@
 
 
 <dt>deferUntilFlush</dt>
-<dd><p>whether to defer the creation of the proxy
-until the next flush cycle</p></dd>
+<dd><p>whether an action
+should be carried out right away,
+or should be held until after the next
+time all of the outputs are updated</p></dd>
 
 </dl></div>
 

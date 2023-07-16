@@ -51,7 +51,7 @@ Indices are expected to be 1-based (R).</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cellText</span><span class="op">(</span><span class="va">proxy</span>, <span class="va">row</span>, <span class="va">col</span>, <span class="va">text</span>, <span class="va">sheetIndex</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">cellText</span><span class="op">(</span><span class="va">proxy</span>, <span class="va">row</span>, <span class="va">col</span>, <span class="va">text</span>, <span class="va">sheetIndex</span>, triggerChange <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -73,7 +73,14 @@ Indices are expected to be 1-based (R).</p>
 
 
 <dt>sheetIndex</dt>
-<dd><p>The index of the sheet to set the cell in,</p></dd>
+<dd><p>The index of the sheet to set the cell in,
+uses R 1-based indexing.</p></dd>
+
+
+<dt>triggerChange</dt>
+<dd><p>Whether to trigger a change event,
+defaults to TRUE, will trigger an update to the _change
+input value</p></dd>
 
 </dl></div>
 
