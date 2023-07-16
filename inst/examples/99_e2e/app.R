@@ -181,7 +181,7 @@ server <- function(input, output, session) {
                     ),
                     "Sheet 2" =
                         data.frame(matrix(rnorm(2500),
-                            nrow = 200, ncol = 100
+                            nrow = 50, ncol = 50
                         )),
                     "Sheet 3" =
                         data.frame(matrix(rnorm(2500),
